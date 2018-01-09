@@ -15,7 +15,7 @@ use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeInterval;
 use Psr\Cache\CacheItemInterface;
-use StandardLibrary\ImmutableObect;
+use StandardLibrary\ImmutableObject;
 use StandardLibrary\Exceptions\Cache\InvalidArgumentException;
 
 /**
@@ -27,7 +27,7 @@ use StandardLibrary\Exceptions\Cache\InvalidArgumentException;
  *
  * @author Simon Deeley <simondeeley@users.noreply.github.com>
  */
-final class CacheItem extends ImmutableObect implements CacheItemInterface
+final class CacheItem extends ImmutableObject implements CacheItemInterface
 {
     /**
      * @var string

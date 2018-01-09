@@ -130,7 +130,7 @@ final class CacheItem extends ImmutableObject implements CacheItemInterface
     final public function expiresAt($expiration)
     {
         // A null value explicitly passed defaults to 'now'
-        if (null === $time) {
+        if (null === $expiration) {
             $expiration = new DateTimeImmutable();
         }
 

@@ -34,6 +34,9 @@ before_script:
   - composer require codedungeon/phpunit-result-printer --no-interaction
   - composer require --dev johnkary/phpunit-speedtrap --no-interaction
 
+script:
+    - phpunit --testdox
+
 after_script:
   - if [ "$TRAVIS_PHP_VERSION" != "nightly" ]; then wget https://scrutinizer-ci.com/ocular.phar; fi
   - if [ "$TRAVIS_PHP_VERSION" != "nightly" ]; then php ocular.phar code-coverage:upload --format=php-clover ./coverage.clover; fi

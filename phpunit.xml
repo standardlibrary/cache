@@ -12,7 +12,7 @@
 		 processIsolation="true"
 		 stopOnFailure="false"
 		 syntaxCheck="false"
-         printerClass="Sempro\PHPUnitPrettyPrinter\PrettyPrinter"
+         printerClass="Codedungeon\PHPUnitPrettyResultPrinter\Printer"
   >
 
     <testsuites>
@@ -20,6 +20,10 @@
     		<directory>tests/</directory>
     	</testsuite>
     </testsuites>
+
+    <listeners>
+        <listener class="JohnKary\PHPUnit\Listener\SpeedTrapListener" />
+    </listeners>
 
     <filter>
         <whitelist addUncoveredFilesFromWhitelist="true">

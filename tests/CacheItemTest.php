@@ -24,13 +24,12 @@ final class CacheItemTest extends TestCase
      *
      * @dataProvider dataProvider
      * @final
-     * @param string $key
      * @param mixed $data
      * @return void
      */
-    final public function testCorrectlyReturnsKeyAndData(string $key, $data): void
+    final public function testCorrectlyReturnsKeyAndData($data): void
     {
-        $item = new CacheItem($key, $data);
+        $item = $this->createCacheItem($data);
 
         $this->assertEquals($key, $item->getKey());
         $this->assertEquals($data, $item->get());
@@ -41,16 +40,15 @@ final class CacheItemTest extends TestCase
      *
      * @dataProvider dataProvider
      * @final
-     * @param string $key
      * @param mixed $data
      * @return void
      */
-    final public function testFutureExpiresAt(string $key, $data): void
+    final public function testFutureExpiresAt($data): void
     {
         $date = new DateTime();
         $date->add($this->getDateInterval());
 
-        $item = new CacheItem($key, $data);
+        $item = $this->createCacheItem($data);
         $item->expiresAt($date);
 
         $this->assertTrue($item->isHit());
@@ -62,11 +60,10 @@ final class CacheItemTest extends TestCase
      *
      * @dataProvider dataProvider
      * @final
-     * @param string $key
      * @param mixed $data
      * @return void
      */
-    final public function testPastExpiresAt(string $key, $data): void
+    final public function testPastExpiresAt($data): void
     {
         $date = new DateTime();
         $date->sub($this->getDateInterval());
@@ -83,13 +80,12 @@ final class CacheItemTest extends TestCase
      *
      * @dataProvider dataProvider
      * @final
-     * @param string $key
      * @param mixed $data
      * @return void
      */
-    final public function testExpiresAfter(string $key, $data): void
+    final public function testExpiresAfter($data): void
     {
-        $item = new CacheItem($key, $data);
+        $item = $this->createCacheItem($data);
         $item->expiresAfter(rand(10, PHP_INT_MAX));
 
         $this->assertTrue($item->isHit());
@@ -104,55 +100,25 @@ final class CacheItemTest extends TestCase
     final public function dataProvider(): array
     {
         return [
-            'String' => [
-                'key',
-                'value',
-            ],
+            'String' => ['value'],
 
-            'Integer' => [
-                'key',
-                rand(0,PHP_INT_MAX),
-            ],
+            'Integer' => [rand(0,PHP_INT_MAX)],
 
-            'Boolean' => [
-                'key',
-                true,
-            ],
+            'Boolean' => [true],
 
-            'null' => [
-                'key',
-                null,
-            ],
+            'null' => [null],
 
-            'Numeric array' => [
-                'key',
-                range(0, 10),
-            ],
+            'Numeric array' => [range(0, 10)],
 
-            'String array' => [
-                'key',
-                range('a', 'z')
-            ],
+            'String array' => [range('a', 'z')],
 
-            'Mixed array' => [
-                'key',
-                array_merge(range(0,10), range('a', 'z')),
-            ],
+            'Mixed array' => [array_merge(range(0,10), range('a', 'z'))],
 
-            'Associative array' => [
-                'key',
-                array_combine(range('a', 'z'), range(1, 26)),
-            ],
+            'Associative array' => [array_combine(range('a', 'z'), range(1, 26))],
 
-            'Large array' => [
-                'key',
-                range(0, 1000000),
-            ],
+            'Large array' => [range(0, 1000000)],
 
-            'Object' => [
-                'key',
-                new DateTime(),
-            ],
+            'Object' => [new DateTime()],
         ];
     }
 
@@ -164,5 +130,18 @@ final class CacheItemTest extends TestCase
     private function getDateInterval(): DateInterval
     {
         return new DateInterval(sprintf('P%dD', rand(1, 355)));
+    }
+
+    /**
+     * Get a random key
+     *
+     * @param mixed $data
+     * @return CacheItem
+     */
+    private function createCacheItem($data): string
+    {
+        $key = var_dump(bin2hex(random_bytes(5)));
+
+        return new CacheItem($key, $data);
     }
 }

@@ -8,8 +8,6 @@ declare(strict_types=1);
  * @copyright Simon Deeley 2017
  */
 
-use DateTime;
-use DateTimeInterval;
 use PHPUnit\Framework\TestCase;
 use StandardLibrary\CacheItem;
 
@@ -90,6 +88,27 @@ final class CacheItemTest extends TestCase
 
         $this->assertTrue($item->isHit());
         $this->assertEquals($data, $item->get());
+    }
+
+    /**
+     * dataProvider
+     *
+     * @return array
+     */
+    final public function dataProvider(): array
+    {
+        return [
+            'Simple data' => [
+                'a' => 'foo',
+                'b' => 1234,
+                'c' => [1, 2, 3, 'a', 'b', 'c'],
+                'd' => null,
+                'e' => true,
+                'f' => false,
+                'g' => new stdClass(),
+                'h' => new DateTime(),
+            ]
+        ];
     }
 
     /**

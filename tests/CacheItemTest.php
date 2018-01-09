@@ -124,8 +124,6 @@ final class CacheItemTest extends TestCase
 
             'Associative array' => [array_combine(range('a', 'z'), range(1, 26))],
 
-            'Large array' => [range(0, 1000000)],
-
             'Object' => [new DateTime()],
         ];
     }

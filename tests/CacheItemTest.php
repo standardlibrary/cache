@@ -119,7 +119,6 @@ final class CacheItemTest extends TestCase
             'Objects and serializable data' => [
                 'a' => new stdClass(),
                 'b' => new DateTime(),
-                'c' => new json_encode([1, true, 3, null, 'b', 'c' => ['foo', 'bar'] ]),
             ],
         ];
     }

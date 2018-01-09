@@ -29,7 +29,9 @@ final class CacheItemTest extends TestCase
      */
     final public function testCorrectlyReturnsKeyAndData($data): void
     {
-        $item = $this->createCacheItem($data);
+        $key = $this->getUniqueKey();
+
+        $item = new CacheItem($key, $data);
 
         $this->assertEquals($key, $item->getKey());
         $this->assertEquals($data, $item->get());
@@ -45,10 +47,12 @@ final class CacheItemTest extends TestCase
      */
     final public function testFutureExpiresAt($data): void
     {
+        $key = $this->getUniqueKey();
+
         $date = new DateTime();
         $date->add($this->getDateInterval());
 
-        $item = $this->createCacheItem($data);
+        $item = new CacheItem($key, $data);
         $item->expiresAt($date);
 
         $this->assertTrue($item->isHit());
@@ -65,6 +69,8 @@ final class CacheItemTest extends TestCase
      */
     final public function testPastExpiresAt($data): void
     {
+        $key = $this->getUniqueKey();
+
         $date = new DateTime();
         $date->sub($this->getDateInterval());
 
@@ -85,7 +91,9 @@ final class CacheItemTest extends TestCase
      */
     final public function testExpiresAfter($data): void
     {
-        $item = $this->createCacheItem($data);
+        $key = $this->getUniqueKey();
+
+        $item = new CacheItem($key, $data);
         $item->expiresAfter(rand(10, PHP_INT_MAX));
 
         $this->assertTrue($item->isHit());
@@ -135,13 +143,10 @@ final class CacheItemTest extends TestCase
     /**
      * Get a random key
      *
-     * @param mixed $data
-     * @return CacheItem
+     * @return string
      */
-    private function createCacheItem($data): string
+    private function getUniqueKey(): string
     {
-        $key = var_dump(bin2hex(random_bytes(5)));
-
-        return new CacheItem($key, $data);
+        return bin2hex(random_bytes(5));
     }
 }

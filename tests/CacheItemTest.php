@@ -47,8 +47,11 @@ final class CacheItemTest extends TestCase
      */
     final public function testFutureExpiresAt(string $key, $data): void
     {
+        $date = new DateTime();
+        $date->add($this->getDateInterval());
+
         $item = new CacheItem($key, $data);
-        $item->expiresAt($this->getFutureDate());
+        $item->expiresAt($date);
 
         $this->assertTrue($item->isHit());
         $this->assertEquals($data, $item->get());
@@ -65,8 +68,11 @@ final class CacheItemTest extends TestCase
      */
     final public function testPastExpiresAt(string $key, $data): void
     {
+        $date = new DateTime();
+        $date->sub($this->getDateInterval());
+
         $item = new CacheItem($key, $data);
-        $item->expiresAt($this->getPastDate());
+        $item->expiresAt($date);
 
         $this->assertFalse($item->isHit());
         $this->assertNull($item->get());
@@ -112,30 +118,12 @@ final class CacheItemTest extends TestCase
     }
 
     /**
-     * Get a random date in the future
+     * Get a random time duration
      *
-     * @return DateTime
+     * @return DateInterval
      */
-    private function getFutureDate(): DateTime
+    private function getDateInterval(): DateInterval
     {
-        $date = new DateTime();
-        $time = new DateInterval(sprintf('PT%dS', rand(10, PHP_INT_MAX)));
-        $date->add($time);
-
-        return $date;
-    }
-
-    /**
-     * Get a random date in the past
-     *
-     * @return DateTime
-     */
-    private function getPastDate(): DateTime
-    {
-        $date = new DateTime();
-        $time = new DateInterval(sprintf('PT%dS', rand(10, PHP_INT_MAX)));
-        $date->sub($time);
-
-        return $date;
+        return new DateInterval(sprintf('PT%dD', rand(1, 355)));
     }
 }

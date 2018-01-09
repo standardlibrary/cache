@@ -11,9 +11,9 @@ declare(strict_types = 1);
 namespace StandardLibrary;
 
 use DateTime;
+use DateInterval;
 use DateTimeImmutable;
 use DateTimeInterface;
-use DateTimeInterval;
 use Psr\Cache\CacheItemInterface;
 use StandardLibrary\ImmutableObject;
 use StandardLibrary\Exceptions\Cache\InvalidArgumentException;

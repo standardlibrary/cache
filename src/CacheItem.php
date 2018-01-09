@@ -180,4 +180,15 @@ final class CacheItem extends ImmutableObject implements CacheItemInterface
 
         return $this;
     }
+
+    /**
+     * Returns a description of the object
+     *
+     * @static
+     * @return string - Returns the name of the object type
+     */
+    public static function getType(): string
+    {
+        return 'CACHE_ITEM';
+    }
 }

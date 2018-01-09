@@ -164,7 +164,7 @@ final class CacheItem extends ImmutableObject implements CacheItemInterface
     {
         // Assume an integer value is time in seconds
         if (is_int($time)) {
-            $time = new DateInterval(sprintf('P%dS', $time));
+            $time = new DateInterval(sprintf('PT%dS', $time));
         }
 
         if ($time instanceof DateInterval) {

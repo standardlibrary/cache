@@ -28,7 +28,7 @@ final class CacheItemTest extends TestCase
      * @param mixed $data
      * @return void
      */
-    final public function testReturnsKey(string $key, $data): void
+    final public function testCorrectlyReturnsKeyAndData(string $key, $data): void
     {
         $item = new CacheItem($key, $data);
 
@@ -104,21 +104,54 @@ final class CacheItemTest extends TestCase
     final public function dataProvider(): array
     {
         return [
-            'Simple data' => [
-                'a' => 'foo',
-                'b' => 1234,
-                'c' => [1, 2, 3, 'a', 'b', 'c'],
+            'String' => [
+                'key',
+                'value',
             ],
 
-            'Null and boolean values' => [
-                'a' => true,
-                'b' => false,
-                'c' => null,
+            'Integer' => [
+                'key',
+                rand(0,PHP_INT_MAX),
             ],
 
-            'Objects and serializable data' => [
-                'a' => new stdClass(),
-                'b' => new DateTime(),
+            'Boolean' => [
+                'key',
+                true,
+            ],
+
+            'null' => [
+                'key',
+                null,
+            ],
+
+            'Numeric array' => [
+                'key',
+                range(0, 10),
+            ],
+
+            'String array' => [
+                'key',
+                range('a', 'z')
+            ],
+
+            'Mixed array' => [
+                'key',
+                array_merge(range(0,10), range('a', 'z')),
+            ],
+
+            'Associative array' => [
+                'key',
+                array_combine(range('a', 'z'), range(1, 26)),
+            ],
+
+            'Large array' => [
+                'key',
+                range(0, 1000000),
+            ],
+
+            'Object' => [
+                'key',
+                new DateTime(),
             ],
         ];
     }

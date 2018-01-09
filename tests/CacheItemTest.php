@@ -124,6 +124,6 @@ final class CacheItemTest extends TestCase
      */
     private function getDateInterval(): DateInterval
     {
-        return new DateInterval(sprintf('PT%dD', rand(1, 355)));
+        return new DateInterval(sprintf('P%dD', rand(1, 355)));
     }
 }

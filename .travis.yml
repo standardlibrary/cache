@@ -32,7 +32,6 @@ before_script:
   - if [ "$dependencies" = "lowest" ]; then composer update --prefer-lowest --no-interaction --prefer-dist; fi;
   - if [ "$dependencies" = "highest" ]; then composer update --no-interaction --prefer-dist; fi;
   - composer require sempro/phpunit-pretty-print --no-interaction
-  - composer require johnkary/phpunit-speedtrap --no-interaction
 
 after_script:
   - if [ "$TRAVIS_PHP_VERSION" != "nightly" ]; then wget https://scrutinizer-ci.com/ocular.phar; fi
